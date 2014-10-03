@@ -4,4 +4,4 @@ Chii is a chobit :)
 * PyQt4
 
 ##
-![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/ji.jpg)
+![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/chii.jpg)
