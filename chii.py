@@ -16,10 +16,10 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 
-class Ji(QtGui.QWidget):
+class Chii(QtGui.QWidget):
     def __init__(self, parent=None):
-        super(Ji, self).__init__()
-        self.picname = "ji.jpg"
+        super(Chii, self).__init__()
+        self.picname = "chii.jpg"
         self.picture = QLabel(self)
 
         self.initUI()
@@ -64,14 +64,14 @@ class Ji(QtGui.QWidget):
 
     def say_action(self):
         self.msg = QMessageBox(self)
-        self.msg.about(self, "Ji says", "Hai")
+        self.msg.about(self, "Chii says", "Chii")
 
 
 
 
 def main():
     app = QtGui.QApplication(sys.argv)
-    myapp = Ji()
+    myapp = Chii()
     myapp.show()
     sys.exit(app.exec_())
 
