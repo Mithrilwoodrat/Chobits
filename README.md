@@ -7,3 +7,4 @@ Chii is a chobit :)
 
 ##
 ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/chii.png)
+![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/chii2.png)
