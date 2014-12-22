@@ -6,5 +6,6 @@ Chii is a chobit :)
 
 
 ##
-![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/chii.png)
-![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/chii2.png)
+* ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/pictures/chii.png)
+
+* ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/screenshots/sreenshot1.png)

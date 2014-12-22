@@ -8,6 +8,7 @@ from PyQt4.QtGui import QPixmap
 from PyQt4.QtCore import QRect
 from PyQt4.QtGui import QImage
 from PyQt4.QtGui import QPainter
+from PyQt4.QtCore import QString
 
 
 
@@ -21,12 +22,20 @@ except AttributeError:
 
 
 class Chii(QtGui.QWidget):
+    """
+    Chobits (ちょびっツ Chobittsu?) is a Japanese manga created by the Japanese manga collective Clamp
+    Chi (ちぃ Chii?) is A "chobit"
+    wikipedia : http://en.wikipedia.org/wiki/Chobits
+    """
+    
     def __init__(self, parent=None):
         super(Chii, self).__init__()
-        self.picnames = ["chii.png","chii2.png"]
+        self.picnames = ["./pictures/chii.png","./pictures/chii3.png"]
         self.pictures = []
         self.current_pic = None
         self.current_pic_num = 0
+        self.word = ""
+        self.talkflag = 0
         self.initui()
 
     def initui(self):
@@ -35,9 +44,12 @@ class Chii(QtGui.QWidget):
         self.createContextMenu()
 
     def load_img(self):
+        """function to load pictures """
+        #add pictures to picture list
         for picname in self.picnames:
             self.pictures.append(QPixmap(picname))
         self.current_pic = self.pictures[self.current_pic_num]
+        self.width,self.height = self.current_pic.width(),self.current_pic.height()
         self.setMask(self.current_pic.mask())
 
     def paintEvent(self, QPaintEvent):
@@ -45,10 +57,30 @@ class Chii(QtGui.QWidget):
         self.resize(self.current_pic.width(),self.current_pic.height())
         self.painter = QPainter()
         self.painter.begin(self)
+        
+        self.drawImg()
+        self.drawWord()
+        self.painter.end()
+
+    def drawImg(self):
+        self.painter.save()
         self.img = QImage(self.current_pic.toImage())
         self.pic_rect = QRect(0, 0, self.current_pic.width(), self.current_pic.height())
         self.painter.drawImage(self.pic_rect, self.img)
-        self.painter.end()
+        self.painter.restore()
+        
+    def drawWord(self):
+        self.painter.save()
+        self.painter.setPen(Qt.black)
+        self.painter.setBrush(Qt.black)
+        if self.talkflag ==1:
+            word = QString(self.word)
+        else:
+            word = ""
+        fm = QtGui.QFontMetricsF(self.font())
+        w = fm.size(Qt.TextSingleLine,word).width()
+        self.painter.drawText(self.width, 50, word)
+        self.painter.restore()
 
     def mousePressEvent(self, QMouseEvent):
         if QMouseEvent.buttons() == Qt.LeftButton:
@@ -66,19 +98,21 @@ class Chii(QtGui.QWidget):
 
         # create QMenu
         self.contextMenu = QtGui.QMenu(self)
-        self.say_menu = self.contextMenu.addAction(u'Hai')
-        self.changpic_menu = self.contextMenu.addAction(u'changepicture')
+        
+        self.talk_menu = self.contextMenu.addAction(u'talk')
         self.close_menu = self.contextMenu.addAction(u'close')
-
-        self.say_menu.triggered.connect(self.say_action)
-        self.changpic_menu.triggered.connect(self.changpic)
+        self.about_menu = self.contextMenu.addAction(u'about')
+        
+        self.talk_menu.triggered.connect(self.talk_action)
         self.close_menu.triggered.connect(self.colse_action)
+        self.about_menu.triggered.connect(self.about_action)
 
     def showContextMenu(self, pos):
         self.contextMenu.move(self.pos() + pos)
         self.contextMenu.show()
 
     def changpic(self):
+        """ change the picture to a picture with textfield"""
         if self.current_pic_num < len(self.pictures)-1:
             self.current_pic_num += 1
         else:
@@ -86,15 +120,17 @@ class Chii(QtGui.QWidget):
         self.current_pic = self.pictures[self.current_pic_num]
         self.update()
 
+    def talk_action(self):
+        self.changpic()
+        self.talkflag = 1
+        self.word = "Chii"
+        
     def colse_action(self):
         self.close()
 
-    def say_action(self):
+    def about_action(self):
         self.msg = QMessageBox(self)
-        self.msg.about(self, "Chii says", "Chii")
-
-
-
+        self.msg.about(self, "About", "Author:Mithrilwoodrat")
 
 def main():
     app = QtGui.QApplication(sys.argv)
