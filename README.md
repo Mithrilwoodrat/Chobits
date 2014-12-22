@@ -3,9 +3,13 @@ Chii is a chobit :)
 ##Required 
 * Python2.7
 * PyQt4
+* psutil
 
 
-##
-* ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/pictures/chii.png)
+##Screenshots
+ ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/pictures/chii.png)
 
-* ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/screenshots/screenshot1.png)
+ ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/screenshots/screenshot1.png)
+
+ ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/screenshots/screenshot2.png)
+

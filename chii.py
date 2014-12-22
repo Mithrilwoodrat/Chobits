@@ -11,7 +11,16 @@ from PyQt4.QtGui import QPainter
 from PyQt4.QtCore import QString
 
 
-
+"""fun to read cpu info """
+try:
+    import psutil
+    def currentCPU(time):
+        return psutil.cpu_percent(time)
+except ImportError:
+    def currentCPU(time):
+        print "no moudle named psutil"
+        return 0
+        
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
@@ -100,13 +109,16 @@ class Chii(QtGui.QWidget):
         self.contextMenu = QtGui.QMenu(self)
         
         self.talk_menu = self.contextMenu.addAction(u'talk')
-        self.close_menu = self.contextMenu.addAction(u'close')
+        self.status_menu = self.contextMenu.addAction(u'status')
         self.about_menu = self.contextMenu.addAction(u'about')
+        self.close_menu = self.contextMenu.addAction(u'close')
+        
         
         self.talk_menu.triggered.connect(self.talk_action)
-        self.close_menu.triggered.connect(self.colse_action)
+        self.status_menu.triggered.connect(self.status_action)
         self.about_menu.triggered.connect(self.about_action)
-
+        self.close_menu.triggered.connect(self.colse_action)
+        
     def showContextMenu(self, pos):
         self.contextMenu.move(self.pos() + pos)
         self.contextMenu.show()
@@ -120,6 +132,11 @@ class Chii(QtGui.QWidget):
         self.current_pic = self.pictures[self.current_pic_num]
         self.update()
 
+    def status_action(self):
+        self.changpic()
+        self.talkflag =1
+        self.word = "CPU : "+str(currentCPU(0))+"%"
+        
     def talk_action(self):
         self.changpic()
         self.talkflag = 1
