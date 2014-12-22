@@ -8,4 +8,4 @@ Chii is a chobit :)
 ##
 * ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/pictures/chii.png)
 
-* ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/screenshots/sreenshot1.png)
+* ![image](https://github.com/Mithrilwoodrat/Chobits/blob/master/screenshots/screenshot1.png)
