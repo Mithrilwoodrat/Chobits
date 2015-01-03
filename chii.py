@@ -39,7 +39,7 @@ class Chii(QtGui.QWidget):
     
     def __init__(self, parent=None):
         super(Chii, self).__init__()
-        self.picnames = ["./pictures/chii.png","./pictures/chii3.png"]
+        self.picnames = ["./pictures/chii.png","./pictures/chii2.png"]
         self.pictures = []
         self.current_pic = None
         self.current_pic_num = 0
@@ -59,16 +59,17 @@ class Chii(QtGui.QWidget):
             self.pictures.append(QPixmap(picname))
         self.current_pic = self.pictures[self.current_pic_num]
         self.width,self.height = self.current_pic.width(),self.current_pic.height()
-        self.setMask(self.current_pic.mask())
+        #self.setMask(self.current_pic.mask())
 
     def paintEvent(self, QPaintEvent):
-        self.setMask(self.current_pic.mask())
-        self.resize(self.current_pic.width(),self.current_pic.height())
         self.painter = QPainter()
         self.painter.begin(self)
-        
+
+
         self.drawImg()
         self.drawWord()
+        self.resize(self.current_pic.width(),self.current_pic.height())
+        self.setMask(self.current_pic.mask())
         self.painter.end()
 
     def drawImg(self):
