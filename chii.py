@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #coding=utf-8
 import sys
 from PyQt4 import  QtGui, QtCore
@@ -141,7 +141,8 @@ class Chii(QtGui.QWidget):
     def talk_action(self):
         self.changpic()
         self.talkflag = 1
-        self.word = "Chii"
+        #self.word = "Chii"
+        self.word = QString(u"新年快乐")
         
     def colse_action(self):
         self.close()
