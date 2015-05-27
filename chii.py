@@ -3,13 +3,13 @@
 import sys
 from PyQt4 import  QtGui, QtCore
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QMessageBox
+from PyQt4.QtGui import QMessageBox,QDialog
 from PyQt4.QtGui import QPixmap
 from PyQt4.QtCore import QRect
 from PyQt4.QtGui import QImage
 from PyQt4.QtGui import QPainter
 from PyQt4.QtCore import QString
-
+from talk import talk_to_chii
 
 """fun to read cpu info """
 try:
@@ -29,6 +29,32 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
+        
+class TalkDialog(QtGui.QDialog):
+    def __init__(self,parent=None):
+        super(TalkDialog, self).__init__()
+        self.textbox = QtGui.QTextEdit(self)
+        self.textbox.setReadOnly(True)
+        self.msgbox = QtGui.QLineEdit(self)
+        self.sendbtn = QtGui.QPushButton(QString(u"发送"),self)
+        self.layout = QtGui.QVBoxLayout(self)
+        self.layout.addWidget(self.textbox)
+        self.layout.addWidget(self.msgbox)
+        self.layout.addWidget(self.sendbtn)
+
+        self.sendbtn.clicked.connect(self.getword)
+    def getword(self):
+        msg = self.msgbox.text()
+        self.textbox.insertPlainText(QString("you : \n") + msg + QString("\n"))
+        # point to end of textbox
+        self.textbox.moveCursor(QtGui.QTextCursor.End)
+        #using tuling123.com open api to talk
+        self.textbox.insertPlainText(QString("chii : \n") + talk_to_chii(unicode(msg),"123") + QString("\n"))
+        #empty LineEdit
+        self.msgbox.setText("")
+        # point to end of textbox
+        self.textbox.moveCursor(QtGui.QTextCursor.End)
+        
 
 class Chii(QtGui.QWidget):
     """
@@ -39,6 +65,7 @@ class Chii(QtGui.QWidget):
     
     def __init__(self, parent=None):
         super(Chii, self).__init__()
+        self.talkdialog = TalkDialog()
         self.picnames = ["./pictures/chii.png","./pictures/chii2.png"]
         self.pictures = []
         self.current_pic = None
@@ -139,12 +166,10 @@ class Chii(QtGui.QWidget):
         self.word = "CPU : "+str(currentCPU(0))+"%"
         
     def talk_action(self):
-        self.changpic()
-        self.talkflag = 1
-        #self.word = "Chii"
-        self.word = QString(u"新年快乐")
+        self.talkdialog.show()
         
     def colse_action(self):
+        self.talkdialog.close()
         self.close()
 
     def about_action(self):
